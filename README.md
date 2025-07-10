@@ -1,133 +1,242 @@
-# AI School Chatbot System
+# 3D WebGL Game Environment with Video Capture
 
-An intelligent chatbot system for schools with machine learning capabilities, user management, and administrative training features.
+A complete 3D game environment built from scratch using pure WebGL and JavaScript, with integrated video capture and generation capabilities.
 
-## Features
+## 🎮 Features
 
-### 🤖 AI Engine
-- **Gradient Descent Learning**: Continuously improves responses through machine learning
-- **Transformer-like Architecture**: Uses simplified encoder-decoder model with attention mechanism
-- **Vocabulary Building**: Automatically builds vocabulary from training data
-- **Context Understanding**: Maintains conversation context and learns from interactions
+### 3D Game Environment
+- **Pure WebGL Implementation**: No external libraries (Three.js, React, etc.)
+- **Complete 3D Scene**: House, terrain, skybox, and dynamic lighting
+- **First-Person Camera**: WASD movement + mouse look controls
+- **Physics**: Basic gravity and ground collision
+- **Real-time Rendering**: 60fps with custom shaders
 
-### 👥 User Management
-- **5 User Types**: Administrator, Teacher, Student, Parent, Simple User
-- **Role-based Access**: Different features and responses based on user type
-- **Secure Authentication**: Username/password authentication system
+### Video Capture System
+- **Frame Buffer**: Continuously captures last 2 minutes of gameplay
+- **On-Demand Recording**: Press 'S' to save video
+- **Multi-Language Integration**: JavaScript → PHP → Python → FFmpeg
+- **High Quality Output**: Configurable video quality and framerate
 
-### 🎓 Educational Features
-- **School-specific Responses**: Tailored answers for academic, administrative, and general queries
-- **Category-based Learning**: Organizes knowledge into categories (general, academic, administrative, schedule, events)
-- **Chat History**: Maintains conversation history for learning purposes
+## 🚀 Quick Start
 
-### 🔧 Administrative Tools
-- **AI Training Panel**: Administrators can train the AI with new question-response pairs
-- **Training Data Management**: View and manage all training data
-- **Real-time Learning**: AI learns from every conversation
-- **Performance Monitoring**: Track learning progress and model performance
+### Prerequisites
+- Web server with PHP support (Apache, Nginx, or local development server)
+- Python 3.6+
+- FFmpeg installed and accessible via command line
 
-## Technology Stack
+### Installation
 
-- **Frontend**: Pure HTML5, CSS3, JavaScript (ES6+)
-- **Storage**: LocalStorage for client-side data persistence
-- **AI Engine**: Custom implementation with gradient descent and transformer concepts
-- **Architecture**: Modular design with separate files for different functionalities
+1. **Clone/Download the files** to your web server directory:
+   ```
+   3d-game.html
+   capture_handler.php
+   video_generator.py
+   ```
 
-## Demo Credentials
+2. **Install FFmpeg**:
+   ```bash
+   # Ubuntu/Debian
+   sudo apt update && sudo apt install ffmpeg
+   
+   # macOS
+   brew install ffmpeg
+   
+   # Windows
+   # Download from https://ffmpeg.org/download.html
+   ```
 
-| User Type | Username | Password |
-|-----------|----------|----------|
-| Administrator | admin | admin123 |
-| Teacher | teacher1 | teach123 |
-| Student | student1 | stud123 |
-| Parent | parent1 | parent123 |
-| Simple User | user1 | user123 |
+3. **Set up Python environment** (optional but recommended):
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-## Getting Started
+4. **Make Python script executable**:
+   ```bash
+   chmod +x video_generator.py
+   ```
 
-1. Open `index.html` in a web browser
-2. Login with any of the demo credentials
-3. Start chatting with the AI assistant
-4. Administrators can double-click the chat header to access the training panel
+5. **Create required directories**:
+   ```bash
+   mkdir videos
+   ```
 
-## AI Training
+### Running the Game
 
-### For Administrators:
-1. Double-click the chat header to access the admin panel
-2. Add new training data with questions and expected responses
-3. Categorize responses for better organization
-4. The AI will immediately learn from new training data
+1. **Start your web server** and navigate to `3d-game.html`
+2. **Click on the canvas** to lock mouse cursor
+3. **Use controls**:
+   - `WASD`: Move around
+   - `Mouse`: Look around
+   - `Space`: Jump
+   - `S`: Save video of last 2 minutes
 
-### Automatic Learning:
-- The AI learns from every conversation
-- Similarity matching improves over time
-- Gradient descent optimizes response generation
-- Vocabulary expands with new interactions
+## 🎯 Controls
 
-## File Structure
+| Key/Action | Function |
+|------------|----------|
+| **W** | Move forward |
+| **A** | Move left |
+| **S** | Move backward (also saves video when pressed) |
+| **D** | Move right |
+| **Space** | Jump |
+| **Mouse** | Look around (after clicking canvas) |
+| **Click Canvas** | Lock mouse cursor |
+
+## 🏗️ Architecture
+
+### Frontend (3D Game)
+- **WebGL Context**: Manual setup with custom shaders
+- **3D Math Library**: Matrix operations, vector math
+- **Geometry System**: Procedural cube, plane, and terrain generation
+- **Scene Management**: Object creation and rendering pipeline
+- **Input System**: Keyboard and mouse event handling
+- **Frame Capture**: Canvas-to-base64 conversion with circular buffer
+
+### Backend (Video Processing)
+- **PHP Handler**: Receives frame data, validates, and triggers processing
+- **Python Generator**: Decodes base64 images and uses FFmpeg for video creation
+- **File Management**: Temporary file handling and cleanup
+
+## 📁 File Structure
 
 ```
-├── index.html          # Main HTML structure
-├── styles.css          # Complete styling and responsive design
-├── app.js             # Main application logic and UI management
-├── ai-engine.js       # AI engine with learning capabilities
-├── database.js        # Client-side data management
-└── README.md          # Documentation
+project/
+├── 3d-game.html          # Main game file (HTML + JavaScript)
+├── capture_handler.php   # PHP endpoint for video processing
+├── video_generator.py    # Python script for video generation
+├── README.md            # This file
+├── videos/              # Generated videos (created automatically)
+└── logs/                # Debug logs (created automatically)
 ```
 
-## Key Features Explained
+## ⚙️ Configuration
 
-### AI Learning Process:
-1. **Vocabulary Building**: Creates word mappings from training data
-2. **Encoding**: Converts text to numerical representations
-3. **Attention Mechanism**: Focuses on relevant parts of input
-4. **Response Generation**: Uses learned patterns to generate responses
-5. **Gradient Descent**: Continuously improves model weights
+### Video Quality Settings
+Edit `video_generator.py` to modify quality presets:
+```python
+quality_settings = {
+    'low': ['-crf', '28', '-preset', 'fast'],
+    'medium': ['-crf', '23', '-preset', 'medium'],
+    'high': ['-crf', '18', '-preset', 'slow']
+}
+```
 
-### User Experience:
-- **Responsive Design**: Works on desktop and mobile devices
-- **Real-time Chat**: Instant messaging interface with typing indicators
-- **Role-based Responses**: Different greeting and capabilities per user type
-- **Visual Feedback**: Smooth animations and transitions
+### Frame Buffer Size
+Modify in `3d-game.html`:
+```javascript
+maxFrames: 120 * 60 * 2, // 2 minutes at 60fps
+```
 
-### Security & Data:
-- **Local Storage**: All data stored locally in browser
-- **User Authentication**: Secure login system
-- **Data Persistence**: Training data and chat history preserved between sessions
+### PHP Configuration
+Edit `capture_handler.php`:
+```php
+$config = [
+    'max_frames' => 7200,              // Maximum frames to process
+    'max_file_size' => 100 * 1024 * 1024, // 100MB limit
+];
+```
 
-## Customization
+## 🔧 Technical Details
 
-### Adding New User Types:
-1. Update the `defaultUsers` object in `database.js`
-2. Add new user type to the select dropdown in `index.html`
-3. Create specific welcome messages in `app.js`
+### WebGL Shaders
+- **Vertex Shader**: Handles 3D transformations and lighting calculations
+- **Fragment Shader**: Implements Phong lighting model with ambient, diffuse, and specular components
 
-### Expanding AI Knowledge:
-1. Use the admin panel to add new training data
-2. Modify default training data in `database.js`
-3. Adjust AI parameters in `ai-engine.js` for different learning rates
+### 3D Scene Components
+- **Terrain**: Procedurally generated with sine wave height variations
+- **House**: Constructed from multiple cube primitives (base, roof, door, windows)
+- **Lighting**: Directional light with configurable color and direction
+- **Camera**: First-person perspective with proper view and projection matrices
 
-### Styling Customization:
-- Modify `styles.css` for different themes
-- Update color schemes and animations
-- Adjust responsive breakpoints
+### Video Pipeline
+1. **Capture**: Canvas frames converted to JPEG base64
+2. **Buffer**: Circular buffer maintains last 2 minutes
+3. **Transfer**: AJAX POST to PHP handler
+4. **Processing**: Python decodes images and calls FFmpeg
+5. **Output**: MP4 video with H.264 encoding
 
-## Browser Compatibility
+## 🐛 Troubleshooting
 
-- Chrome 60+
-- Firefox 55+
-- Safari 12+
-- Edge 79+
+### Common Issues
 
-## Future Enhancements
+**Video generation fails:**
+- Ensure FFmpeg is installed and accessible
+- Check PHP error logs and `capture_handler.log`
+- Verify Python script has execute permissions
 
-- Integration with real backend databases
-- Advanced NLP processing
-- Voice chat capabilities
-- Multi-language support
-- Analytics dashboard
-- Mobile app version
+**WebGL not working:**
+- Check browser WebGL support: https://get.webgl.org/
+- Enable hardware acceleration in browser settings
+- Update graphics drivers
 
-## License
+**Performance issues:**
+- Reduce frame capture frequency in game loop
+- Lower video quality settings
+- Decrease terrain complexity
 
-This project is open source and available under the MIT License.
+### Debug Information
+- Check browser console for JavaScript errors
+- Monitor `capture_handler.log` for PHP/Python issues
+- Use browser dev tools to inspect network requests
+
+## 🎨 Customization
+
+### Adding New 3D Objects
+```javascript
+// Create custom geometry
+const myGeometry = {
+    vertices: [...], // Position, normal, UV data
+    indices: [...]   // Triangle indices
+};
+
+// Add to scene
+const myObject = Scene.createObject(myGeometry, position, rotation, scale, color);
+Scene.add(myObject);
+```
+
+### Modifying Shaders
+Edit the shader source strings in `3d-game.html`:
+- `vertexShaderSource`: Vertex transformations
+- `fragmentShaderSource`: Pixel color calculations
+
+### Custom Controls
+Add new key bindings in the `initInput()` function:
+```javascript
+if (Game.input.keys['KeyE']) {
+    // Custom action
+}
+```
+
+## 📊 Performance
+
+### Optimization Tips
+- Frame capture occurs every 2nd frame to reduce memory usage
+- Circular buffer prevents unlimited memory growth
+- WebGL uses efficient buffer management
+- Video encoding uses hardware acceleration when available
+
+### System Requirements
+- **Minimum**: Modern browser with WebGL support, 4GB RAM
+- **Recommended**: Dedicated graphics card, 8GB+ RAM, SSD storage
+- **For video generation**: Multi-core CPU, 16GB+ RAM recommended
+
+## 🤝 Contributing
+
+This is a self-contained educational project demonstrating:
+- Pure WebGL programming without frameworks
+- 3D mathematics and graphics programming
+- Multi-language system integration
+- Real-time video capture and processing
+
+Feel free to extend and modify for your own projects!
+
+## 📄 License
+
+This project is provided as-is for educational purposes. Feel free to use, modify, and distribute.
+
+## 🙏 Acknowledgments
+
+- WebGL specification and documentation
+- FFmpeg for video processing capabilities
+- Modern browser WebGL implementations
