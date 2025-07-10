@@ -1,6 +1,8 @@
-# 3D WebGL Game Environment with Video Capture
+# 🏠 House Explorer - 3D WebGL Game
 
-A complete 3D game environment built from scratch using pure WebGL and JavaScript, with integrated video capture and generation capabilities.
+A complete 3D game environment built **entirely from scratch** using pure WebGL 1.0 and vanilla JavaScript. No external libraries, no frameworks, no engines - everything is custom-built to demonstrate advanced 3D graphics programming.
+
+![House Explorer Screenshot](https://img.shields.io/badge/WebGL-1.0-blue) ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow) ![No Dependencies](https://img.shields.io/badge/Dependencies-None-green)
 
 ## 🎮 Features
 

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Explorer - 3D WebGL Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            cursor: none;
+        }
+        
+        #gameCanvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        #ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            z-index: 100;
+            font-size: 14px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        #instructions {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            z-index: 100;
+            font-size: 12px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        #crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            z-index: 100;
+        }
+        
+        #crosshair::before,
+        #crosshair::after {
+            content: '';
+            position: absolute;
+            background: white;
+            box-shadow: 0 0 4px rgba(0,0,0,0.8);
+        }
+        
+        #crosshair::before {
+            width: 2px;
+            height: 20px;
+            left: 9px;
+            top: 0;
+        }
+        
+        #crosshair::after {
+            width: 20px;
+            height: 2px;
+            left: 0;
+            top: 9px;
+        }
+        
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">
+        <div>Loading House Explorer...</div>
+        <div style="font-size: 12px; margin-top: 10px;">Click to start when ready</div>
+    </div>
+    
+    <canvas id="gameCanvas"></canvas>
+    
+    <div id="crosshair"></div>
+    
+    <div id="ui">
+        <div>FPS: <span id="fps">0</span></div>
+        <div>Position: <span id="position">0, 0, 0</span></div>
+        <div>Camera Mode: <span id="cameraMode">First Person</span></div>
+        <div id="doorStatus" style="color: yellow; display: none;">Press E to open door</div>
+    </div>
+    
+    <div id="instructions">
+        WASD: Move | Mouse: Look | E: Interact with door | C: Toggle camera | ESC: Release mouse
+    </div>
+
+    <!-- Math Engine -->
+    <script src="js/math-engine.js"></script>
+    
+    <!-- WebGL Utilities -->
+    <script src="js/webgl-utils.js"></script>
+    
+    <!-- Perlin Noise -->
+    <script src="js/perlin-noise.js"></script>
+    
+    <!-- Geometry Builders -->
+    <script src="js/geometry.js"></script>
+    
+    <!-- Camera System -->
+    <script src="js/camera.js"></script>
+    
+    <!-- Lighting System -->
+    <script src="js/lighting.js"></script>
+    
+    <!-- Scene Objects -->
+    <script src="js/scene-objects.js"></script>
+    
+    <!-- Input Handler -->
+    <script src="js/input.js"></script>
+    
+    <!-- Game Engine -->
+    <script src="js/game-engine.js"></script>
+    
+    <!-- Main Game -->
+    <script src="js/main.js"></script>
+</body>
+</html>
